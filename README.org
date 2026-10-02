@@ -11,7 +11,10 @@
 * gh actions lint
 ** 𑘪𑘱𑘬𑘧𑘎𑘿𑘬𑘹𑘝𑘿𑘨 | Subject Domain | વિષયક્ષેત્ર
 A way to do ~glab ci lint~ for your github workflows
+*** Installation
+~gh extension install ksinkar/gh-actions-lint~
+***
 ** 𑘀𑘥𑘱𑘧𑘰𑘽𑘝𑘿𑘨𑘱𑘎𑘲 | Engineering | અભિયાન્ત્રિકી
-- go
+- [[https://go.dev/][go]]
 ** 𑘧𑘻𑘕𑘡𑘰 | Planning | યોજના |
 ** 𑘫𑘤𑘿𑘟𑘭𑘳𑘓𑘱 | Glossary   | શબ્દસુચિ

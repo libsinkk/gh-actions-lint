@@ -1,4 +1,4 @@
-module github.com/ksinkar/gh-actions-list
+module github.com/libsinkk/gh-actions-lint
 
 go 1.25.0
 
