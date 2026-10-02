@@ -6,7 +6,9 @@ on:
 
 permissions:
   contents: write
+  ## Required by the generate attestations
   id-token: write
+  attestations: write
 
 jobs:
   build-and-deploy:
