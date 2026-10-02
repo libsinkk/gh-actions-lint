@@ -19,7 +19,6 @@ doc := README.org
 basedoc := dist/doc/README
 MAKEINFO ?= makeinfo
 
-
 help:             ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	| sort \
@@ -31,9 +30,9 @@ dist:             ## create a distribution tar file for this program
 	git archive --output=$(pwdname).tar.gz HEAD
 	git archive --output=$(pwdname).tar.xz HEAD
 
-distclean: $(pwdname).bundle $(pwdname).zip $(pwdname).tar.gz $(pwdname).tar.xz  ## like clean but do not clean installdirs and parent dirs
-	$(RM) $^
-	$(RM) -r dist
+distclean: $(pwdname).bundle $(pwdname).zip $pwdname.tar.gz $pwdname.tar.xz  ## like clean but do not clean installdirs and parent dirs
+	$RM $^
+	$RM -r dist
 
 configure:        ## configure the build environment
 	command -v go
@@ -43,12 +42,17 @@ configure:        ## configure the build environment
 	git config core.hooksPath .githooks
 	mkdir -p dist/doc
 
-build:            ## generate the build
-	go build
-install:          ## install builds packages to
-	go mod tidy
+all:            ## generate the build
+	GOOS=windows GOARCH=amd64 go build -o gh-actions-lint-windows-amd64.exe
+	GOOS=linux   GOARCH=amd64 go build -o gh-actions-lint-linux-amd64
+	GOOS=darwin  GOARCH=amd64 go build -o gh-actions-lint-darwin-amd64
+
+publish: all  ## install builds packages to
+	gh release create $(shell git tag | head -1) ./*amd64*
+
 clean:            ## delete all files that are normally created by running 'make all'.
-	$(RM) gh-actions-lint
+	$(RM) gh-actions-lint *amd64.exe *amd64
+
 html:$(basedoc).html             ## generate html documentation
 $(basedoc).html: $(doc)
 	pandoc -f org -t html5 --standalone -o $@ $<
@@ -66,5 +70,5 @@ $(basedoc).info: $(basedoc).texi
 
 check:            ## run self-tests
 	go test
-dependencies:     ## install the dependencies
+deps:     ## install the dependencies
 	go mod tidy
