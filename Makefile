@@ -48,7 +48,7 @@ all:            ## generate the build
 	GOOS=darwin  GOARCH=amd64 go build -o gh-actions-lint-darwin-amd64
 
 publish: all  ## install builds packages to
-	gh release create $(shell git tag | head -1) ./*amd64*
+	gh release create $(shell git tag | tail -1) ./*amd64*
 
 clean:            ## delete all files that are normally created by running 'make all'.
 	$(RM) gh-actions-lint *amd64.exe *amd64
